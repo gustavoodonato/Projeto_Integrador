@@ -8,6 +8,7 @@ from PySide6.QtGui import QFont
 from components.botao_retornar import BotaoRetornar
 from components.card_dificuldade import CardDificuldade
 from modals.modal_como_jogar import CardComoJogar
+from components.card_desempenho_alunos import CardDesempenho
 
 class TelaAluno(QWidget):
     def __init__(self):
