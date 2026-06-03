@@ -1,0 +1,11 @@
+venv/
+__pycache__/
+*.pyc
+.vscode/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos de ambiente
+.env
