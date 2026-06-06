@@ -6,36 +6,16 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont
 from components.botao_sair import BotaoSair
+from database.crud_usuario import listar_usuarios
 
 
-texto_termos = """
-TERMOS DE USO
-
-1. ACEITAÇÃO DOS TERMOS
-Ao utilizar esta aplicação, você concorda com os presentes Termos de Uso...
-
-2. USO DA APLICAÇÃO
-Esta aplicação é fornecida para uso pessoal e não comercial...
-
-3. PRIVACIDADE
-Seus dados são tratados conforme nossa Política de Privacidade...
-
-4. RESPONSABILIDADES
-O usuário é responsável por todas as atividades realizadas em sua conta...
-
-5. MODIFICAÇÕES
-Reservamo-nos o direito de modificar estes termos a qualquer momento...
-
-6. DISPOSIÇÕES GERAIS
-Estes termos são regidos pelas leis brasileiras...
-""" * 5
 
 
 
 class ModalVisualizar(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setWindowTitle("Termos de Uso")
+        self.setWindowTitle("Visualizar Usuários")
         self.setFixedSize(600, 500)
         self.setWindowFlags(
             Qt.Dialog |
@@ -80,7 +60,23 @@ class ModalVisualizar(QDialog):
         area_scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         area_scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
 
-        termos_label = QLabel(texto_termos)
+        texto = ""
+
+        usuarios = listar_usuarios()
+
+        for u in usuarios:
+            texto += (
+            f"ID: {u[0]}\n"
+            f"Nome: {u[1]}\n"
+            f"Email: {u[2]}\n"
+            f"Tipo: {u[4]}\n"
+            f"Vitórias: {u[5]}\n"
+            f"Derrotas: {u[6]}\n"
+            f"Pontuação: {u[7]}\n"
+            "--------------------------\n\n"
+            )
+
+        termos_label = QLabel(texto)
         termos_label.setStyleSheet("""
             QLabel {
                 background-color: white;

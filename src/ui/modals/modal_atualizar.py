@@ -6,7 +6,8 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont
 from components.botao_sair import BotaoSair
-
+from PySide6.QtWidgets import QMessageBox
+from database.crud_usuario import atualizar_senha
 
 class BotaoBuscar(QPushButton):
     def __init__(self, text, parent=None):
@@ -128,6 +129,7 @@ class ModalAtualizar(QDialog):
         # ✅ Botão centralizado e adicionado uma única vez
         linha_botao = QHBoxLayout()
         self.botao_atualizar = QPushButton("Atualizar dados do aluno")
+        self.botao_atualizar.clicked.connect(self.atualizar_aluno)
         self.botao_atualizar.setFixedWidth(380)
         self.botao_atualizar.setMinimumHeight(60)
         self.botao_atualizar.setFont(QFont("Verdana Black", 18, QFont.Bold))
@@ -152,7 +154,35 @@ class ModalAtualizar(QDialog):
         linha_botao.addStretch()
         layout_modal_atualizar.addLayout(linha_botao)
 
-        
+    def atualizar_aluno(self):
+
+        email = self.campo_adicionar_login.text().strip()
+        nova_senha = self.campo_adicionar_senha.text().strip()
+
+        if not email or not nova_senha:
+
+            QMessageBox.warning(
+            self,
+            "Erro",
+            "Preencha todos os campos."
+        )
+
+            return
+
+        atualizar_senha(
+            email,
+            nova_senha
+    )
+
+        QMessageBox.information(
+            self,
+            "Sucesso",
+            "Senha atualizada com sucesso!"
+    )
+
+        self.close()
+
+
     def showEvent(self, event):
         super().showEvent(event)
         screen = QApplication.primaryScreen().geometry()

@@ -6,6 +6,9 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont
 from components.botao_sair import BotaoSair
+from PySide6.QtWidgets import QMessageBox
+
+from database.crud_usuario import adicionar_usuario
 
 class BotaoAdicionar(QPushButton):
     def __init__(self, text, parent=None):
@@ -126,10 +129,50 @@ class ModalAdicionar(QDialog):
         linha_botao = QHBoxLayout()
         self.botao_adicionar = BotaoAdicionar("Adicionar Aluno")
         self.botao_adicionar.setFixedWidth(280)
+        self.botao_adicionar.clicked.connect(self.adicionar_aluno)
         linha_botao.addStretch()
         linha_botao.addWidget(self.botao_adicionar)
         linha_botao.addStretch()
         layout_modal_adicionar.addLayout(linha_botao)
+
+    def adicionar_aluno(self):
+
+        email = self.campo_adicionar_login.text().strip()
+        senha = self.campo_adicionar_senha.text().strip()
+
+        if not email or not senha:
+            QMessageBox.warning(
+                self,
+                "Erro",
+                "Preencha todos os campos."
+        )
+            return
+        nome = email.split("@")[0]
+            
+        try:
+
+            adicionar_usuario(
+            nome,
+            email,
+            senha,
+          "Aluno"
+            )
+
+            QMessageBox.information(
+                self,
+                "Sucesso",
+                "Aluno adicionado com sucesso!"
+        )
+
+            self.close()
+
+        except Exception as erro:
+
+            QMessageBox.critical(
+            self,
+            "Erro",
+            f"Erro ao adicionar aluno:\n{erro}"
+        )
 
     def showEvent(self, event):
         super().showEvent(event)
