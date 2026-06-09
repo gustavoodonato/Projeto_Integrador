@@ -27,20 +27,41 @@ class CardDesempenho(QFrame):
         layout = QVBoxLayout(self)
         layout.setContentsMargins(10, 8, 10, 10)
         layout.setSpacing(10)
-        layout.addWidget(self._card_header("digite aq para mudar"))
+        layout.addWidget(self._card_header("Partidas Anteriores"))
 
         body = QWidget()
         body_l = QVBoxLayout(body)
         body_l.setContentsMargins(16, 16, 16, 16)
         body_l.setSpacing(0)
         body_l.addWidget(
-            self._label("digite aq para mudar"),
+            self._label("Partidas jogadas:"),
             alignment=Qt.AlignTop
         )
         body_l.addStretch()
         body_l.addWidget(
-            self._label("digite aq para mudar")
+            self._label("Pontuação recorde:")
         )
         body_l.addStretch()
 
         layout.addWidget(body, stretch=1)
+
+    def _card_header(self, text):
+        lbl = QLabel(text)
+        lbl.setAlignment(Qt.AlignCenter)
+        lbl.setWordWrap(True)
+        lbl.setFont(QFont("Arial", 15, QFont.Bold))
+        lbl.setStyleSheet(f"""
+            background-color: {CRIMSON};
+            color: {WHITE};
+            border-top-left-radius: 14px;
+            border-top-right-radius: 14px;
+            padding: 14px 10px;
+        """)
+        lbl.setFixedHeight(72)
+        return lbl
+
+    def _label(self, text):
+        lbl = QLabel(text)
+        lbl.setFont(QFont("Arial", 10, QFont.Bold))
+        lbl.setStyleSheet(f"color: {TEXT_LABEL}; background: transparent;")
+        return lbl
