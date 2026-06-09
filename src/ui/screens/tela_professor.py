@@ -22,7 +22,7 @@ BORDER       = "#C5C5C5"
 TEXT_LABEL   = "#2C2C2C"
 
 
-class GameAdminWindow(QMainWindow):
+class TelaProfessor(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Painel do Jogo")
@@ -253,6 +253,6 @@ class GameAdminWindow(QMainWindow):
 # ── Entry point ──────────────────────────────────────────────────
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = GameAdminWindow()
+    window = TelaProfessor()
     window.show()
     sys.exit(app.exec())
