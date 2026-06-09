@@ -1,4 +1,11 @@
 import sys
+import os
+
+sys.path.append(
+    os.path.abspath(
+        os.path.join(os.path.dirname(__file__), "..")
+    )
+)
 from PySide6.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QHBoxLayout,
     QPushButton, QLabel, QFrame, QSizePolicy
@@ -43,6 +50,11 @@ class TelaAluno(QWidget):
         linha_meio = QHBoxLayout()
         linha_meio.setSpacing(20)
 
+        self.card_desempenho = CardDesempenho(
+        
+        )
+        self.card_desempenho.setFixedWidth(220)
+        linha_meio.addWidget(self.card_desempenho)
         
 
         # Coluna central
