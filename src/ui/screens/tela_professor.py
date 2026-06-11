@@ -18,7 +18,7 @@ from modals.modal_adicionar import ModalAdicionar
 from modals.modal_visualizar import ModalVisualizar
 from modals.modal_atualizar import ModalAtualizar
 from modals.modal_deletar import ModalDeletar
-from database.usuario import listar_alunos
+from Projeto_Integrador.src.database.usuario import listar_alunos
 
 # ── Paleta de cores ──────────────────────────────────────────────
 CRIMSON      = "#8B1A1A"

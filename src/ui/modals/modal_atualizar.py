@@ -7,7 +7,7 @@ from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont
 from components.botao_sair import BotaoSair
 from PySide6.QtWidgets import QMessageBox
-from database.crud_usuario import atualizar_senha
+from Projeto_Integrador.src.database.crud_usuario import atualizar_senha
 
 class BotaoBuscar(QPushButton):
     def __init__(self, text, parent=None):

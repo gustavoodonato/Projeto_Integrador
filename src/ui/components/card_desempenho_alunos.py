@@ -5,7 +5,7 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import Qt, QTimer
 from PySide6.QtGui import QFont
-from database.usuario import listar_alunos
+from Projeto_Integrador.src.database.usuario import listar_alunos
 
 CRIMSON      = "#8B1A1A"
 GRAY     = "#D9D9D9"

@@ -1,4 +1,4 @@
-from database.database import cursor
+from Projeto_Integrador.src.database.database import cursor
 
 def listar_alunos():
 

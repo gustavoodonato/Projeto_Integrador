@@ -6,7 +6,7 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont
 from components.botao_sair import BotaoSair
-from database.crud_usuario import listar_usuarios
+from Projeto_Integrador.src.database.crud_usuario import listar_usuarios
 
 
 
