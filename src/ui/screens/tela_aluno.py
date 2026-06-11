@@ -36,7 +36,7 @@ class TelaAluno(QWidget):
         linha_topo = QHBoxLayout()
 
         self.botao_retornar = BotaoRetornar()
-        linha_topo.addWidget(self.botao_retornar)
+        linha_topo.addWidget(self.botao_retornar, alignment=Qt.AlignLeft | Qt.AlignTop)
 
         linha_topo.addStretch()          # empurra o card para a direita
 

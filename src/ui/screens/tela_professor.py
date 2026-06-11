@@ -82,7 +82,6 @@ class TelaProfessor(QMainWindow):
         layout.setSpacing(20)
 
         layout.addWidget(self._card_desempenho())
-        layout.addWidget(self._card_partidas())
         layout.addWidget(self._card_admin())
         return wrapper
 
@@ -102,30 +101,9 @@ class TelaProfessor(QMainWindow):
         body_l.addWidget(self._label("Pontuação dos Alunos:"))
         body_l.addStretch() 
         
-        
-
         layout.addWidget(body, stretch=1)
         return card
 
-    # ── Card: Partidas em andamento ──────────────────────────────
-    def _card_partidas(self):
-        card = self._make_card()
-        layout = card.layout()
-        layout.addWidget(self._card_header("Partidas em\nandamento"))
-
-        body = QWidget()
-        body_l = QVBoxLayout(body)
-        body_l.setContentsMargins(16, 16, 16, 16)
-        body_l.setSpacing(0)
-
-        body_l.addWidget(self._label("Duração da partida:"), alignment=Qt.AlignTop)
-        body_l.addStretch()
-        body_l.addWidget(self._label("Pontuação Atual:"))
-        body_l.addStretch()
-        
-
-        layout.addWidget(body, stretch=1)
-        return card
 
     # ── Card: Administração de Jogadores ─────────────────────────
     def _card_admin(self):
