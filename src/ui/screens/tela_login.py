@@ -183,30 +183,12 @@ class TelaLogin(QWidget):
         btn_row = QHBoxLayout()
         self.btn_entrar = BotaoEntrar("Entrar")
         self.btn_entrar.setFixedWidth(280)
-        self.btn_entrar.clicked.connect(self._entrar)
         btn_row.addStretch()
         btn_row.addWidget(self.btn_entrar)
         btn_row.addStretch()
         outer.addLayout(btn_row)
 
-        outer.addStretch()
-
-    def _entrar(self):
-        login = self.campo_login.text().strip()
-        if not login:
-            self.campo_login.setPlaceholderText("⚠ Por favor, insira seu login!")
-            self.campo_login.setStyleSheet("""
-                QLineEdit {
-                    background-color: #fff0f0;
-                    border: 2px solid #E8201A;
-                    border-radius: 10px;
-                    padding: 0 14px;
-                    color: #333;
-                }
-            """)
-            return
-        print(f"Login efetuado: {login}")
-        
+        outer.addStretch()       
 
 def main():
     app = QApplication(sys.argv)
