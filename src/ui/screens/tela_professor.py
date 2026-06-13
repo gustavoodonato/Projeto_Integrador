@@ -11,14 +11,14 @@ from PySide6.QtWidgets import (
     QHBoxLayout, QPushButton, QLabel, QFrame, QTextEdit,
     QSizePolicy
 )
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QTimer
 from PySide6.QtGui import QFont
 
 from modals.modal_adicionar import ModalAdicionar
 from modals.modal_visualizar import ModalVisualizar
 from modals.modal_atualizar import ModalAtualizar
 from modals.modal_deletar import ModalDeletar
-
+from Projeto_Integrador.src.database.usuario import listar_alunos
 
 # ── Paleta de cores ──────────────────────────────────────────────
 CRIMSON      = "#911712"
@@ -35,7 +35,9 @@ class TelaProfessor(QMainWindow):
         self.setWindowTitle("Painel do Jogo")
         self.setMinimumSize(820, 520)
         self.setStyleSheet(f"background-color: {WHITE};")
-
+        #self.timer = QTimer(self)
+        #self.timer.timeout.connect(self.atualizar_alunos)
+        #self.timer.start(5000)
         central = QWidget()
         self.setCentralWidget(central)
         root_layout = QVBoxLayout(central)
