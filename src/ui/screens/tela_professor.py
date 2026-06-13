@@ -21,7 +21,7 @@ from modals.modal_deletar import ModalDeletar
 
 
 # ── Paleta de cores ──────────────────────────────────────────────
-CRIMSON      = "#8B1A1A"
+CRIMSON      = "#911712"
 CRIMSON_HOV  = "#A52020"
 GRAY     = "#D9D9D9"
 WHITE        = "#FFFFFF"

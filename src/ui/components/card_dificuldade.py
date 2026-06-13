@@ -9,7 +9,7 @@ cor_texto = "#444444"
 estilo_card_normal = f"""
 QFrame#CardDificuldade {{
     background-color: {cinza};
-    border-radius: 18px;
+    border-radius: 6px;
     border: none;
 }}
 """
@@ -17,7 +17,7 @@ QFrame#CardDificuldade {{
 estilo_card_selecionado = f"""
     QFrame#CardDificuldade {{
         background-color: {cinza};
-        border-radius: 18px;
+        border-radius: 6px;
         border: 3px solid {vermelho};
     }}
 """
@@ -31,7 +31,7 @@ class CardDificuldade(QFrame):
         self.setStyleSheet(f"""
         QFrame#CardDificuldade {{
             background-color: {cinza};
-            border-radius: 18px;
+            border-radius: 6px;
             border: 3px solid transparent;
         }}
         QFrame#CardDificuldade:hover {{
@@ -77,7 +77,7 @@ class CardDificuldade(QFrame):
             color: black;
             background-color: white;
             border: 1px solid #cccccc;
-            border-radius: 10px;
+            border-radius: 6px;
             padding: 8px;
         }}
     """)

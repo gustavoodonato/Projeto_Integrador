@@ -13,7 +13,7 @@ class BotaoSair(QPushButton):
                 background-color: #911712;
                 color: white;
                 border: none;
-                border-radius: 18px;
+                border-radius: 6px;
             }
             QPushButton:hover {
                 background-color: #c91a14;

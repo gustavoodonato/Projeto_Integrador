@@ -44,7 +44,7 @@ class ModalVisualizar(QDialog):
         self.setStyleSheet("""
             QDialog {
                 background-color: white;
-                border-radius: 18px;
+                border-radius: 6px;
                 padding: 10px 14px;
             }
         """)
@@ -68,7 +68,7 @@ class ModalVisualizar(QDialog):
             QLabel {
                 background-color: #911712;
                 color: white;
-                border-radius: 18px;
+                border-radius: 6px;
                 padding: 10px 14px;
             }
         """)
@@ -101,10 +101,3 @@ class ModalVisualizar(QDialog):
         x = (screen.width() - self.width()) // 2
         y = (screen.height() - self.height()) // 2
         self.move(x, y)
-
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    window = ModalVisualizar()
-    window.show()
-    sys.exit(app.exec())

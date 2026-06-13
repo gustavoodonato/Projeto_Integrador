@@ -61,7 +61,8 @@ class BotaoEntrar(QPushButton):
                 background-color: #911712;
                 color: white;
                 border: none;
-                border-radius: 20px;
+                font-size: 20px;
+                border-radius: 6px;
                 padding: 10px 40px;
             }
             QPushButton:hover {

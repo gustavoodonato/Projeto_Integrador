@@ -181,10 +181,3 @@ class TermosDeUso(QDialog):
         x = (screen.width() - self.width()) // 2
         y = (screen.height() - self.height()) // 2
         self.move(x, y)
-
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    window = TermosDeUso()
-    window.show()
-    sys.exit(app.exec())

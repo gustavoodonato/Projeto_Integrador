@@ -32,13 +32,15 @@ class TelaAluno(QWidget):
         layout_raiz.setContentsMargins(20, 20, 20, 20)
         layout_raiz.setSpacing(12)
 
-        # ── Linha do topo: [Retornar] | espaço | [Como Jogar] ───────────
+        # ── Linha do topo: [Retornar] | [Bem Vindo!] | [Como Jogar] ────
         linha_topo = QHBoxLayout()
+        linha_topo.setSpacing(12)
 
         self.botao_retornar = BotaoRetornar()
         linha_topo.addWidget(self.botao_retornar, alignment=Qt.AlignLeft | Qt.AlignTop)
 
-        linha_topo.addStretch()          # empurra o card para a direita
+        self.label_bem_vindo = self._criar_label_titulo("Bem Vindo à tela\nde seleção de jogo!")
+        linha_topo.addWidget(self.label_bem_vindo, stretch=1)
 
         self.card_como_jogar = self._criar_card_como_jogar()
         self.card_como_jogar.setFixedWidth(280)
@@ -46,26 +48,20 @@ class TelaAluno(QWidget):
 
         layout_raiz.addLayout(linha_topo)
 
-        # ── Linha do meio: [Card Info] | conteúdo central ───────────────
+        # ── Linha do meio: [Card Desempenho] | conteúdo central ─────────
         linha_meio = QHBoxLayout()
         linha_meio.setSpacing(20)
 
-        self.card_desempenho = CardDesempenho(
-        
-        )
+        self.card_desempenho = CardDesempenho()
         self.card_desempenho.setFixedWidth(220)
         linha_meio.addWidget(self.card_desempenho)
-        
 
         # Coluna central
         coluna_central = QVBoxLayout()
         coluna_central.setSpacing(16)
 
-        label_bem_vindo = self._criar_label_titulo("Bem Vindo!")
-        coluna_central.addWidget(label_bem_vindo)
-
-        label_dificuldade = self._criar_label_titulo("Escolha a Dificuldade da Partida")
-        coluna_central.addWidget(label_dificuldade)
+        self.label_dificuldade = self._criar_label_titulo("Escolha o Nível de Dificuldade da Partida")
+        coluna_central.addWidget(self.label_dificuldade)
 
         # Cards de dificuldade
         linha_cards = QHBoxLayout()
@@ -121,7 +117,7 @@ class TelaAluno(QWidget):
             QLabel {
                 background-color: #911712;
                 color: white;
-                border-radius: 18px;
+                border-radius: 6px;
                 padding: 10px 14px;
             }
         """)
@@ -140,7 +136,7 @@ class TelaAluno(QWidget):
         botao.setCursor(Qt.PointingHandCursor)
         botao.setStyleSheet("""
             QPushButton { background-color: #911712; color: white;
-                          border: none; border-radius: 12px; padding: 8px 16px; }
+                          border: none; border-radius: 6px; padding: 8px 16px; }
             QPushButton:hover   { background-color: #c91a14; }
             QPushButton:pressed { background-color: #a81410; }
         """)
@@ -156,7 +152,7 @@ class TelaAluno(QWidget):
         descricao.setAlignment(Qt.AlignCenter)
         descricao.setWordWrap(True)
         descricao.setStyleSheet(
-            "color: #444444; background-color: white; border-radius: 12px; padding: 6px;"
+            "color: #444444; background-color: white; border-radius: 6px; padding: 6px;"
         )
         layout.addWidget(descricao)
 
@@ -169,7 +165,7 @@ class TelaAluno(QWidget):
         botao.setCursor(Qt.PointingHandCursor)
         botao.setStyleSheet("""
             QPushButton { background-color: #911712; color: white;
-                          border: none; border-radius: 18px; }
+                          border: none; border-radius: 6px; }
             QPushButton:hover   { background-color: #c91a14; }
             QPushButton:pressed { background-color: #a81410; }
         """)

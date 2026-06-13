@@ -18,7 +18,7 @@ class CardDesempenho(QFrame):
         self.setStyleSheet(f"""
             QFrame {{
                 background-color: {GRAY};
-                border-radius: 14px;
+                border-radius: 6px;
             }}
         """)
 
@@ -53,8 +53,8 @@ class CardDesempenho(QFrame):
         lbl.setStyleSheet(f"""
             background-color: {CRIMSON};
             color: {WHITE};
-            border-top-left-radius: 14px;
-            border-top-right-radius: 14px;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
             padding: 14px 10px;
         """)
         lbl.setFixedHeight(72)

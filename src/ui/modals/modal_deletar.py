@@ -21,7 +21,7 @@ class ModalDeletar(QDialog):
         self.setStyleSheet("""
             QDialog {
                 background-color: white;
-                border-radius: 18px;
+                border-radius: 6px;
                 padding: 10px 14px;
             }
         """)
@@ -43,7 +43,7 @@ class ModalDeletar(QDialog):
             QLabel {
                 background-color: #911712;
                 color: white;
-                border-radius: 18px;
+                border-radius: 6px;
                 padding: 10px 14px;
             }
         """)
@@ -62,7 +62,7 @@ class ModalDeletar(QDialog):
             QLineEdit {
                 background-color: #F0E0E0;
                 border: 1.5px solid #ccc;
-                border-radius: 10px;
+                border-radius: 6px;
                 padding: 0 5px;
                 color: #333;
             }
@@ -90,7 +90,7 @@ class ModalDeletar(QDialog):
             QLineEdit {
                 background-color: #F0E0E0;
                 border: 1.5px solid #ccc;
-                border-radius: 10px;
+                border-radius: 6px;
                 padding: 0 14px;
                 color: #333;
             }
@@ -116,7 +116,7 @@ class ModalDeletar(QDialog):
                 background-color: #911712;
                 color: white;
                 border: none;
-                border-radius: 20px;
+                border-radius: 6px;
                 padding: 10px 40px;
             }
             QPushButton:hover {
@@ -137,10 +137,3 @@ class ModalDeletar(QDialog):
         x = (screen.width() - self.width()) // 2
         y = (screen.height() - self.height()) // 2
         self.move(x, y)
-
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    window = ModalDeletar()
-    window.show()
-    sys.exit(app.exec())

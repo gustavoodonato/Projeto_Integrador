@@ -1,8 +1,18 @@
+import sys
+import os
+
+sys.path.append(
+    os.path.abspath(
+        os.path.join(os.path.dirname(__file__), "..")
+    )
+)
+
 from PySide6.QtWidgets import (
     QDialog, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QScrollArea, QWidget
 )
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont
+from components.botao_sair import BotaoSair
 
 VERMELHO = "#911712"
 CINZA = "#D9D9D9"
@@ -13,7 +23,6 @@ class CardComoJogar(QDialog):
         self.setMinimumSize(400, 300)
         self.setModal(True)
         self.setStyleSheet("background-color: #fefefe;")
-        # Remove a barra de título nativa do SO
         self.setWindowFlags(Qt.WindowType.Dialog | Qt.WindowType.FramelessWindowHint)
         self._setup_ui()
 
@@ -32,7 +41,7 @@ class CardComoJogar(QDialog):
             QLabel {{
                 background-color: {VERMELHO};
                 color: white;
-                border-radius: 14px;
+                border-radius: 6px;
                 padding: 8px 18px;
             }}
         """)
@@ -66,20 +75,6 @@ class CardComoJogar(QDialog):
         layout.addWidget(scroll)
 
         # Botão fechar
-        botao_fechar = QPushButton("Fechar")
-        botao_fechar.setFixedHeight(40)
-        botao_fechar.setFixedWidth(70)
-        botao_fechar.setFont(QFont("Verdana", 11, QFont.Bold))
-        botao_fechar.setCursor(Qt.PointingHandCursor)
-        botao_fechar.setStyleSheet(f"""
-            QPushButton {{
-                background-color: {VERMELHO};
-                color: white;
-                border: none;
-                border-radius: 12px;
-            }}
-            QPushButton:hover {{ background-color: #c91a14; }}
-            QPushButton:pressed {{ background-color: #a81410; }}
-        """)
+        botao_fechar = BotaoSair()
         botao_fechar.clicked.connect(self.close)
         layout.addWidget(botao_fechar, alignment=Qt.AlignCenter)
