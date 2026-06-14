@@ -1,4 +1,4 @@
-from Projeto_Integrador.src.database.database import conexao, cursor
+from database.database import conexao, cursor
 
 def adicionar_usuario(nome, email, senha, tipo_usuario):
 

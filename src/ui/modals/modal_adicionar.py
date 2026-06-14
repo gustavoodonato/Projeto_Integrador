@@ -1,4 +1,3 @@
-import sys
 from PySide6.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QHBoxLayout,
     QPushButton, QLabel, QLineEdit, QDialog
@@ -7,8 +6,7 @@ from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont
 from components.botao_sair import BotaoSair
 from PySide6.QtWidgets import QMessageBox
-
-from Projeto_Integrador.src.database.crud_usuario import adicionar_usuario
+from database.crud_usuario import adicionar_usuario
 
 class BotaoAdicionar(QPushButton):
     def __init__(self, text, parent=None):

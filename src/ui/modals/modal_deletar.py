@@ -1,4 +1,3 @@
-import sys
 from PySide6.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QHBoxLayout,
     QPushButton, QLabel, QLineEdit, QFrame,
@@ -7,7 +6,7 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont
 from components.botao_sair import BotaoSair
-from src.database.crud_usuario import deletar_usuario_email
+from database.crud_usuario import deletar_usuario_email
 
 
 class ModalDeletar(QDialog):
@@ -103,10 +102,9 @@ class ModalDeletar(QDialog):
 
         layout_modal_deletar.addWidget(label_adicionar_senha)
         layout_modal_deletar.addWidget(self.campo_adicionar_senha)
-        layout_modal_deletar.addSpacing(16)  # Espaço antes do botão
+        layout_modal_deletar.addSpacing(16)
         
 
-        # ✅ Botão centralizado e adicionado uma única vez
         linha_botao = QHBoxLayout()
         self.botao_deletar = QPushButton("Deletar dados do aluno")
         self.botao_deletar.setFixedWidth(380)
@@ -136,19 +134,15 @@ class ModalDeletar(QDialog):
 
 
     def deletar_aluno(self):
-
         email = self.campo_adicionar_login.text().strip()
 
         if not email:
-
             QMessageBox.warning(
             self,
             "Erro",
             "Digite o email do aluno."
         )
-
             return
-
         deletar_usuario_email(email)
 
         QMessageBox.information(
@@ -156,9 +150,7 @@ class ModalDeletar(QDialog):
         "Sucesso",
         "Aluno removido com sucesso!"
     )
-
         self.close()
-
 
     def showEvent(self, event):
         super().showEvent(event)

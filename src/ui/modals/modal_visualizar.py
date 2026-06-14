@@ -1,4 +1,3 @@
-import sys
 from PySide6.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QHBoxLayout,
     QPushButton, QLabel, QLineEdit, QFrame, QSizePolicy, QDialog, QScrollArea
@@ -6,7 +5,7 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont
 from components.botao_sair import BotaoSair
-from Projeto_Integrador.src.database.crud_usuario import listar_usuarios
+from database.crud_usuario import listar_usuarios
 
 
 
@@ -32,7 +31,7 @@ class ModalVisualizar(QDialog):
 
     def _build_ui(self):
         layout_modal_visualizar = QVBoxLayout(self)
-        layout_modal_visualizar.setSpacing(8)  # ✅ Espaçamento geral reduzido
+        layout_modal_visualizar.setSpacing(8) 
         layout_modal_visualizar.setContentsMargins(20, 20, 20, 20)
 
         botao_sair_modal_visualizar = BotaoSair()

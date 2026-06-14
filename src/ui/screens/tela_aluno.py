@@ -10,7 +10,7 @@ from PySide6.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QHBoxLayout,
     QPushButton, QLabel, QFrame, QSizePolicy
 )
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, Signal
 from PySide6.QtGui import QFont
 from components.botao_retornar import BotaoRetornar
 from components.card_dificuldade import CardDificuldade
@@ -18,8 +18,14 @@ from modals.modal_como_jogar import CardComoJogar
 from components.card_desempenho_alunos import CardDesempenho
 
 class TelaAluno(QWidget):
-    def __init__(self):
+    retornar_login = Signal()
+
+    def __init__(self, nome="", partidas_ganhas=0, partidas_perdidas=0, pontuacao=0):
         super().__init__()
+        self.nome = nome
+        self.partidas_ganhas = partidas_ganhas
+        self.partidas_perdidas = partidas_perdidas
+        self.pontuacao = pontuacao
         self.setWindowTitle("Tela Aluno")
         self.setMinimumSize(750, 560)
         self._setup_ui()
@@ -27,19 +33,18 @@ class TelaAluno(QWidget):
     def _setup_ui(self):
         self.setStyleSheet("background-color: #fefefe;")
 
-        # ── Layout raiz (tudo dentro dele) ──────────────────────────────
         layout_raiz = QVBoxLayout(self)
         layout_raiz.setContentsMargins(20, 20, 20, 20)
         layout_raiz.setSpacing(12)
 
-        # ── Linha do topo: [Retornar] | [Bem Vindo!] | [Como Jogar] ────
         linha_topo = QHBoxLayout()
         linha_topo.setSpacing(12)
 
         self.botao_retornar = BotaoRetornar()
+        self.botao_retornar.clicked.connect(self.retornar_login.emit)  # ← conecta ao signal
         linha_topo.addWidget(self.botao_retornar, alignment=Qt.AlignLeft | Qt.AlignTop)
 
-        self.label_bem_vindo = self._criar_label_titulo("Bem Vindo à tela\nde seleção de jogo!")
+        self.label_bem_vindo = self._criar_label_titulo(f"Bem Vindo, {self.nome}\nà Tela de Seleção de Jogo!")
         linha_topo.addWidget(self.label_bem_vindo, stretch=1)
 
         self.card_como_jogar = self._criar_card_como_jogar()
@@ -48,22 +53,23 @@ class TelaAluno(QWidget):
 
         layout_raiz.addLayout(linha_topo)
 
-        # ── Linha do meio: [Card Desempenho] | conteúdo central ─────────
         linha_meio = QHBoxLayout()
         linha_meio.setSpacing(20)
 
-        self.card_desempenho = CardDesempenho()
+        self.card_desempenho = CardDesempenho(
+            partidas_ganhas=self.partidas_ganhas,
+            partidas_perdidas=self.partidas_perdidas,
+            pontuacao=self.pontuacao
+        )
         self.card_desempenho.setFixedWidth(220)
         linha_meio.addWidget(self.card_desempenho)
 
-        # Coluna central
         coluna_central = QVBoxLayout()
         coluna_central.setSpacing(16)
 
         self.label_dificuldade = self._criar_label_titulo("Escolha o Nível de Dificuldade da Partida")
         coluna_central.addWidget(self.label_dificuldade)
 
-        # Cards de dificuldade
         linha_cards = QHBoxLayout()
         linha_cards.setSpacing(16)
 
@@ -105,8 +111,6 @@ class TelaAluno(QWidget):
 
         linha_meio.addLayout(coluna_central, stretch=1)
         layout_raiz.addLayout(linha_meio, stretch=1)
-
-    # ── Métodos auxiliares ───────────────────────────────────────────────
 
     def _criar_label_titulo(self, texto: str) -> QLabel:
         label = QLabel(texto)
@@ -174,10 +178,3 @@ class TelaAluno(QWidget):
     def _abrir_como_jogar(self):
         modal = CardComoJogar(parent=self)
         modal.exec()
-
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    janela = TelaAluno()
-    janela.show()
-    sys.exit(app.exec())

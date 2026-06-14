@@ -1,19 +1,17 @@
-# ── Card: Desempenho dos Jogadores ───────────────────────────
 import sys
 from PySide6.QtWidgets import (
-     QVBoxLayout,QLabel, QFrame,QSizePolicy,QApplication, QWidget
+     QVBoxLayout, QLabel, QFrame, QSizePolicy, QHBoxLayout, QWidget
 )
-from PySide6.QtCore import Qt, QTimer
+from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont
-from src.database.usuario import listar_alunos
 
-CRIMSON      = "#8B1A1A"
-GRAY     = "#D9D9D9"
-WHITE        = "#FFFFFF"
-TEXT_LABEL   = "#2C2C2C"
+CRIMSON    = "#8B1A1A"
+GRAY       = "#D9D9D9"
+WHITE      = "#FFFFFF"
+TEXT_LABEL = "#2C2C2C"
 
 class CardDesempenho(QFrame):
-    def __init__(self, parent=None):
+    def __init__(self, partidas_ganhas=0, partidas_perdidas=0, pontuacao=0, parent=None):
         super().__init__(parent)
 
         self.setStyleSheet(f"""
@@ -22,34 +20,32 @@ class CardDesempenho(QFrame):
                 border-radius: 6px;
             }}
         """)
-
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
         layout = QVBoxLayout(self)
         layout.setContentsMargins(10, 8, 10, 10)
         layout.setSpacing(10)
-        layout.addWidget(self._card_header("Partidas Anteriores"))
 
-        layout.addWidget(
-        self._card_header("Desempenho dos\nJogadores")
-        )
+        layout.addWidget(self._card_header("Partidas\nAnteriores"))
+
         body = QWidget()
         body_l = QVBoxLayout(body)
         body_l.setContentsMargins(16, 16, 16, 16)
-        body_l.setSpacing(0)
+        body_l.setSpacing(12)
 
-        body_l.addWidget(self._label("Partidas jogadas:"),alignment=Qt.AlignTopself._label("Histórico de partidas:"),alignment=Qt.AlignTop)
-
-        body_l.addStretch()
-
-        body_l.addWidget(self._label("Pontuação recorde:")self._label("Pontuação dos Alunos:"))
-
-        self.lista_alunos = QLabel()
-        self.lista_alunos.setWordWrap(True)
-
-        body_l.addWidget(self.lista_alunos)
+        # Linha partidas ganhas / perdidas
+        linha = QHBoxLayout()
+        self.label_ganhas = self._label(f"Partidas\nVencidas:\n{partidas_ganhas}")
+        self.label_perdidas = self._label(f"Partidas\nPerdidas:\n{partidas_perdidas}")
+        linha.addWidget(self.label_ganhas)
+        linha.addWidget(self.label_perdidas)
+        body_l.addLayout(linha)
 
         body_l.addStretch()
+
+        # Pontuação
+        self.label_pontuacao = self._label(f"Pontuação Recorde:\n{pontuacao}")
+        body_l.addWidget(self.label_pontuacao)
 
         layout.addWidget(body, stretch=1)
 
@@ -71,5 +67,7 @@ class CardDesempenho(QFrame):
     def _label(self, text):
         lbl = QLabel(text)
         lbl.setFont(QFont("Arial", 10, QFont.Bold))
+        lbl.setWordWrap(True)
+        lbl.setAlignment(Qt.AlignCenter)
         lbl.setStyleSheet(f"color: {TEXT_LABEL}; background: transparent;")
         return lbl

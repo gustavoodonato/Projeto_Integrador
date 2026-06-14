@@ -1,4 +1,3 @@
-import sys
 from PySide6.QtWidgets import (
     QApplication, QVBoxLayout, QHBoxLayout,
     QPushButton, QLabel, QLineEdit, QDialog
@@ -7,7 +6,7 @@ from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont
 from components.botao_sair import BotaoSair
 from PySide6.QtWidgets import QMessageBox
-from Projeto_Integrador.src.database.crud_usuario import atualizar_senha
+from database.crud_usuario import atualizar_senha
 
 class BotaoBuscar(QPushButton):
     def __init__(self, text, parent=None):
@@ -124,9 +123,9 @@ class ModalAtualizar(QDialog):
 
         layout_modal_atualizar.addWidget(label_adicionar_senha)
         layout_modal_atualizar.addWidget(self.campo_adicionar_senha)
-        layout_modal_atualizar.addSpacing(16)  # Espaço antes do botão
+        layout_modal_atualizar.addSpacing(16)
 
-        # ✅ Botão centralizado e adicionado uma única vez
+
         linha_botao = QHBoxLayout()
         self.botao_atualizar = QPushButton("Atualizar dados do aluno")
         self.botao_atualizar.clicked.connect(self.atualizar_aluno)
@@ -160,28 +159,23 @@ class ModalAtualizar(QDialog):
         nova_senha = self.campo_adicionar_senha.text().strip()
 
         if not email or not nova_senha:
-
             QMessageBox.warning(
             self,
             "Erro",
             "Preencha todos os campos."
         )
-
             return
 
         atualizar_senha(
             email,
             nova_senha
     )
-
         QMessageBox.information(
             self,
             "Sucesso",
             "Senha atualizada com sucesso!"
     )
-
         self.close()
-
 
     def showEvent(self, event):
         super().showEvent(event)
