@@ -160,3 +160,8 @@ class TelaPartida(QWidget):
         linha_inferior.addWidget(self.card_pontuacao, alignment=Qt.AlignBottom)
 
         layout_raiz.addLayout(linha_inferior)
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    janela = TelaPartida()
+    janela.show()
+    sys.exit(app.exec())
