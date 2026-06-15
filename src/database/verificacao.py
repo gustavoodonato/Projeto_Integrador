@@ -3,7 +3,8 @@ from database.database import cursor
 class VerificacaoLogin:
     def verificar(self, login, senha):
         sql = """
-            SELECT nome,
+            SELECT idUsuario,
+                   nome,
                    tipo_usuario,
                    partidas_ganhas,
                    partidas_perdidas,

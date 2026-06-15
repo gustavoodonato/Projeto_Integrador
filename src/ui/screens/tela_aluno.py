@@ -1,21 +1,13 @@
-import sys
-import os
-
-sys.path.append(
-    os.path.abspath(
-        os.path.join(os.path.dirname(__file__), "..")
-    )
-)
 from PySide6.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QHBoxLayout,
     QPushButton, QLabel, QFrame, QSizePolicy
 )
 from PySide6.QtCore import Qt, Signal
 from PySide6.QtGui import QFont
-from components.botao_retornar import BotaoRetornar
-from components.card_dificuldade import CardDificuldade
-from modals.modal_como_jogar import CardComoJogar
-from components.card_desempenho_alunos import CardDesempenho
+from ui.components.botao_retornar import BotaoRetornar
+from ui.components.card_dificuldade import CardDificuldade
+from ui.modals.modal_como_jogar import CardComoJogar
+from ui.components.card_desempenho_alunos import CardDesempenho
 
 class TelaAluno(QWidget):
     retornar_login = Signal()

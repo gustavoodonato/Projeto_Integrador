@@ -1,10 +1,3 @@
-import sys
-import os
-
-_base = os.path.dirname(__file__)
-sys.path.insert(0, os.path.join(_base, '..', '..'))
-sys.path.insert(0, os.path.join(_base, '..'))
-
 from PySide6.QtWidgets import (
     QApplication, QMainWindow, QWidget, QVBoxLayout,
     QHBoxLayout, QPushButton, QLabel, QFrame, QTextEdit,
@@ -12,11 +5,11 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import Qt, Signal
 from PySide6.QtGui import QFont
-from components.botao_retornar import BotaoRetornar
-from modals.modal_adicionar import ModalAdicionar
-from modals.modal_visualizar import ModalVisualizar
-from modals.modal_atualizar import ModalAtualizar
-from modals.modal_deletar import ModalDeletar
+from ui.components.botao_retornar import BotaoRetornar
+from ui.modals.modal_adicionar import ModalAdicionar
+from ui.modals.modal_visualizar import ModalVisualizar
+from ui.modals.modal_atualizar import ModalAtualizar
+from ui.modals.modal_deletar import ModalDeletar
 
 CRIMSON     = "#911712"
 CRIMSON_HOV = "#A52020"

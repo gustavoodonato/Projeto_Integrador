@@ -5,7 +5,7 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import Qt, Signal
 from PySide6.QtGui import QFont
-from components.botao_retornar import BotaoRetornar
+from ui.components.botao_retornar import BotaoRetornar
 
 
 class ModalResultado(QDialog):

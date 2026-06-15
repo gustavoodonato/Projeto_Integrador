@@ -1,18 +1,9 @@
-import sys
-import os
-
-sys.path.append(
-    os.path.abspath(
-        os.path.join(os.path.dirname(__file__), "..")
-    )
-)
-
 from PySide6.QtWidgets import (
     QDialog, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QScrollArea, QWidget
 )
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont
-from components.botao_sair import BotaoSair
+from ui.components.botao_sair import BotaoSair
 
 VERMELHO = "#911712"
 CINZA = "#D9D9D9"

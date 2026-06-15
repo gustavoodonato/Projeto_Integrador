@@ -1,18 +1,10 @@
-import sys
-import os
-
-sys.path.append(
-    os.path.abspath(
-        os.path.join(os.path.dirname(__file__), "..")
-    )
-)
 from PySide6.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QHBoxLayout,
     QPushButton, QLabel, QLineEdit, QFrame, QSizePolicy
 )
 from PySide6.QtCore import Qt, QSize
 from PySide6.QtGui import QFont, QPalette, QColor, QPainter, QPainterPath, QBrush
-from components.botao_sair import BotaoSair
+from ui.components.botao_sair import BotaoSair
 
 class RoundedRedBanner(QFrame):
     def __init__(self, parent=None):

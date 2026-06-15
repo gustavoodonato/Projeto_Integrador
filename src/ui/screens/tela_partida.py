@@ -1,12 +1,3 @@
-import sys
-import os
-
-sys.path.append(
-    os.path.abspath(
-        os.path.join(os.path.dirname(__file__), "..")
-    )
-)
-
 from PySide6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout,
     QPushButton, QFrame, QSizePolicy, QGridLayout, QApplication
@@ -15,9 +6,9 @@ from PySide6.QtCore import Qt
 from PySide6.QtGui import QPainter, QColor, QPen, QBrush, QPolygon, QFont
 from PySide6.QtCore import QPoint
 
-from components.botao_retornar import BotaoRetornar
-from components.layout_pedra import LayoutPedra
-from components.card_informacoes import CardInformacoes
+from ui.components.botao_retornar import BotaoRetornar
+from ui.components.layout_pedra import LayoutPedra
+from ui.components.card_informacoes import CardInformacoes
 
 
 class MesaJogo(QFrame):
@@ -160,9 +151,3 @@ class TelaPartida(QWidget):
         linha_inferior.addWidget(self.card_pontuacao, alignment=Qt.AlignBottom)
 
         layout_raiz.addLayout(linha_inferior)
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    window = TelaPartida()
-    window.show()
-    sys.exit(app.exec())

@@ -5,7 +5,7 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont
-from components.botao_sair import BotaoSair
+from ui.components.botao_sair import BotaoSair
 from database.crud_usuario import deletar_usuario_email
 
 

@@ -9,21 +9,21 @@ class LayoutPedra(QFrame):
     def __init__(self, id_lado_esquerdo=None, id_lado_direito=None, parent=None):
         super().__init__(parent)
 
-
         self.id_lado_esquerdo = id_lado_esquerdo
         self.id_lado_direito = id_lado_direito
-
         self.selecionada = False
-
-
         self.posicao_clique = QPoint()
+
+        print("CRIANDO PEDRA:", id_lado_esquerdo, id_lado_direito)
 
         self._setup_ui()
 
     def _setup_ui(self):
-        self.setFixedSize(120, 60)
+        self.setObjectName("pedra")
+        self.setFixedSize(140, 70)
+
         self.setStyleSheet("""
-            QFrame {
+            #pedra {
                 background-color: white;
                 border: 2px solid #222222;
                 border-radius: 6px;
@@ -34,57 +34,60 @@ class LayoutPedra(QFrame):
         layout_principal.setContentsMargins(4, 4, 4, 4)
         layout_principal.setSpacing(0)
 
-        # --- LADO ESQUERDO ---
-        self.label_esquerdo = QLabel()
+        # LADO ESQUERDO
+        self.label_esquerdo = QLabel(str(self.id_lado_esquerdo))
         self.label_esquerdo.setAlignment(Qt.AlignCenter)
-        self.label_esquerdo.setFixedSize(50, 50)
-        self.label_esquerdo.setStyleSheet("border: none;")
+        self.label_esquerdo.setWordWrap(True)
+        self.label_esquerdo.setFixedSize(60, 60)
+        self.label_esquerdo.setStyleSheet("""
+            border: none;
+            color: black;
+            font-size: 12px;
+            font-weight: bold;
+        """)
 
-        if self.id_lado_esquerdo is not None:
-            self.label_esquerdo.setText(str(self.id_lado_esquerdo))
-        else:
-            self.label_esquerdo.setText("?")
-
-        # --- DIVISÓRIA CENTRAL ---
+        # DIVISÓRIA
         divisoria = QFrame()
         divisoria.setFixedWidth(2)
-        divisoria.setStyleSheet("background-color: #222222; border: none;")
+        divisoria.setStyleSheet("background-color: black; border: none;")
 
-        # --- LADO DIREITO ---
-        self.label_direito = QLabel()
+        # LADO DIREITO
+        self.label_direito = QLabel(str(self.id_lado_direito))
         self.label_direito.setAlignment(Qt.AlignCenter)
-        self.label_direito.setFixedSize(50, 50)
-        self.label_direito.setStyleSheet("border: none;")
-
-        if self.id_lado_direito is not None:
-            self.label_direito.setText(str(self.id_lado_direito))
-        else:
-            self.label_direito.setText("?")
+        self.label_direito.setWordWrap(True)
+        self.label_direito.setFixedSize(60, 60)
+        self.label_direito.setStyleSheet("""
+            border: none;
+            color: black;
+            font-size: 12px;
+            font-weight: bold;
+        """)
 
         layout_principal.addWidget(self.label_esquerdo)
         layout_principal.addWidget(divisoria)
         layout_principal.addWidget(self.label_direito)
 
+        print("ESQ:", self.label_esquerdo.text())
+        print("DIR:", self.label_direito.text())
 
     def atualizar_conteudo(self, texto_esquerdo, texto_direito):
-        self.label_esquerdo.setText(texto_esquerdo)
-        self.label_direito.setText(texto_direito)
+        self.label_esquerdo.setText(str(texto_esquerdo))
+        self.label_direito.setText(str(texto_direito))
 
     def selecionar(self):
         self.selecionada = True
         self.setStyleSheet("""
-            QFrame {
+            #pedra {
                 background-color: white;
-                border: 2px solid #8B0000;
+                border: 3px solid #8B0000;
                 border-radius: 6px;
-                margin-bottom: 8px;
             }
         """)
 
     def desselecionar(self):
         self.selecionada = False
         self.setStyleSheet("""
-            QFrame {
+            #pedra {
                 background-color: white;
                 border: 2px solid #222222;
                 border-radius: 6px;
@@ -103,17 +106,16 @@ class LayoutPedra(QFrame):
 
         drag = QDrag(self)
         mime = QMimeData()
-        dados = f"{self.id_lado_esquerdo},{self.id_lado_direito}"
-        mime.setText(dados)
+        mime.setText(f"{self.id_lado_esquerdo},{self.id_lado_direito}")
         drag.setMimeData(mime)
 
         pixmap = QPixmap(self.size())
         pixmap.fill(Qt.transparent)
+
         painter = QPainter(pixmap)
-        self.render(painter)
+        self.render(painter, QPoint())
         painter.end()
 
         drag.setPixmap(pixmap)
         drag.setHotSpot(self.posicao_clique)
-
         drag.exec(Qt.MoveAction)
