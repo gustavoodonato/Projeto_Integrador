@@ -41,7 +41,7 @@ class TelaAluno(QWidget):
         linha_topo.setSpacing(12)
 
         self.botao_retornar = BotaoRetornar()
-        self.botao_retornar.clicked.connect(self.retornar_login.emit)  # ← conecta ao signal
+        self.botao_retornar.clicked.connect(self.retornar_login.emit)
         linha_topo.addWidget(self.botao_retornar, alignment=Qt.AlignLeft | Qt.AlignTop)
 
         self.label_bem_vindo = self._criar_label_titulo(f"Bem Vindo, {self.nome}\nà Tela de Seleção de Jogo!")
@@ -67,7 +67,7 @@ class TelaAluno(QWidget):
         coluna_central = QVBoxLayout()
         coluna_central.setSpacing(16)
 
-        self.label_dificuldade = self._criar_label_titulo("Escolha o Nível de Dificuldade da Partida")
+        self.label_dificuldade = self._criar_label_titulo("Escolha o Nível de Dificuldade que Deseja Jogar")
         coluna_central.addWidget(self.label_dificuldade)
 
         linha_cards = QHBoxLayout()
