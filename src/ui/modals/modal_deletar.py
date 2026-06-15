@@ -159,13 +159,6 @@ class ModalDeletar(QDialog):
         y = (screen.height() - self.height()) // 2
         self.move(x, y)
         self.move(x, y)
-
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    window = ModalDeletar()
-    window.show()
-    sys.exit(app.exec())
     
 
 

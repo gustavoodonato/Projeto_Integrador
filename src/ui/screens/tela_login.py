@@ -181,20 +181,4 @@ class TelaLogin(QWidget):
         btn_row.addStretch()
         outer.addLayout(btn_row)
 
-        outer.addStretch()       
-
-def main():
-    app = QApplication(sys.argv)
-    app.setStyle("Fusion")
-
-    palette = QPalette()
-    palette.setColor(QPalette.Window, QColor("white"))
-    app.setPalette(palette)
-
-    janela = TelaLogin()
-    janela.show()
-    sys.exit(app.exec())
-
-
-if __name__ == "__main__":
-    main()
+        outer.addStretch()

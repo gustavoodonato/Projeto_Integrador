@@ -7,15 +7,11 @@ class LayoutPedra(QFrame):
     pedra_clicada = Signal(object)
 
     def __init__(self, id_lado_esquerdo=None, id_lado_direito=None, parent=None):
-        super().__init__(parent)
-
+        super().__init__(parent)       
         self.id_lado_esquerdo = id_lado_esquerdo
         self.id_lado_direito = id_lado_direito
-        self.selecionada = False
+        self.selecionada = False        
         self.posicao_clique = QPoint()
-
-        print("CRIANDO PEDRA:", id_lado_esquerdo, id_lado_direito)
-
         self._setup_ui()
 
     def _setup_ui(self):
