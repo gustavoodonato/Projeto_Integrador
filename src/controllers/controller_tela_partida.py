@@ -171,10 +171,47 @@ class ControllerTelaPartida(QObject):
         f"Ponta esquerda ({tipo_ponta_esq}) precisa de: {oposto_esq}"
         )
         self._atualizar_cards()
+        self._verificar_jogo_travado()
+
+    def _existe_jogada_possivel(self):
+        if not self.mesa:
+            return True  
+
+        tipo_ponta_dir = self.mesa[-1][4]
+        tipo_ponta_esq = self.mesa[0][2]
+
+        for _, esq, tipo_esq, dir_, tipo_dir in self.mao:
+            if tipo_esq == tipo_ponta_dir or tipo_dir == tipo_ponta_esq:
+                return True
+        return False
+    
+    def _verificar_jogo_travado(self):
+        if not self.monte and not self._existe_jogada_possivel():
+            self.timer.stop()
+            finalizar_partida(self.id_partida)
+
+            QMessageBox.information(
+                self.tela,
+                "Partida travada",
+                "Não há mais jogadas possíveis e o monte está vazio.\nA partida foi finalizada.",
+            )
+
+            m = self.segundos // 60
+            s = self.segundos % 60
+
+            modal = ModalResultado(
+                pontuacao=self.pontuacao,
+                tempo=f"{m:02d}:{s:02d}",
+                total_jogadas=self.total_jogadas,
+                parent=self.tela,
+        )
+        modal.retornar_tela_aluno.connect(self._voltar_tela_aluno)
+        modal.exec()
 
     def _comprar_pedra(self):
         if not self.monte:
             self.tela.botao_comprar.setEnabled(False)
+            self._verificar_jogo_travado()
             return
 
         peca = self.monte.pop(0)
