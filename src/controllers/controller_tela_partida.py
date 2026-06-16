@@ -46,7 +46,6 @@ class ControllerTelaPartida(QObject):
 
     def _iniciar_jogo(self):
         pecas = list(buscar_pedras_por_nivel(self.nivel))
-        print("Peças carregadas:", pecas[:3])  # mostra as 3 primeiras
         random.shuffle(pecas)
         self.mao   = pecas[:7]
         self.monte = pecas[7:]
@@ -61,7 +60,6 @@ class ControllerTelaPartida(QObject):
                 item.widget().deleteLater()
 
         for id_peca, esq, tipo_esq, dir_, tipo_dir in self.mao:
-            print(f"Renderizando: esq={esq}, tipo_esq={tipo_esq}, dir={dir_}, tipo_dir={tipo_dir}")  # ← aqui
             widget = LayoutPedra(
                 id_lado_esquerdo=esq,
                 id_lado_direito=dir_,
@@ -85,7 +83,6 @@ class ControllerTelaPartida(QObject):
         self._atualizar_cards()
 
     def _selecionar_pedra(self, widget: LayoutPedra):
-    # Ignora se o widget já foi destruído
         try:    
             _ = widget.selecionada
         except RuntimeError:
@@ -171,10 +168,12 @@ class ControllerTelaPartida(QObject):
         f"Ponta esquerda ({tipo_ponta_esq}) precisa de: {oposto_esq}"
         )
         self._atualizar_cards()
+        self._verificar_bloqueio()
 
     def _comprar_pedra(self):
         if not self.monte:
             self.tela.botao_comprar.setEnabled(False)
+            self._verificar_bloqueio()
             return
 
         peca = self.monte.pop(0)
@@ -194,6 +193,22 @@ class ControllerTelaPartida(QObject):
             finalizar_partida(self.id_partida)
             self.tela.close()
             self.tela_aluno.show()
+    
+    def _verificar_bloqueio(self):
+        if len(self.monte) > 0:
+            return
+
+        if not self.mesa:
+            return
+
+        tipo_ponta_esq = self.mesa[0][2]
+        tipo_ponta_dir = self.mesa[-1][4]
+
+        for id_peca, esq, tipo_esq, dir_, tipo_dir in self.mao:
+            if tipo_esq == tipo_ponta_dir or tipo_dir == tipo_ponta_dir or tipo_esq == tipo_ponta_esq or tipo_dir == tipo_ponta_esq:
+                return
+
+        self._finalizar_partida()
 
     def _finalizar_partida(self):
         self.timer.stop()

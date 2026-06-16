@@ -14,7 +14,7 @@ from ui.components.card_informacoes import CardInformacoes
 class MesaJogo(QFrame):
     """Desenha o octógono vermelho e organiza as pedras jogadas em serpentina."""
 
-    PEDRAS_POR_LINHA = 5
+    PEDRAS_POR_LINHA = 7
 
     def __init__(self, parent=None):
         super().__init__(parent)

@@ -10,6 +10,7 @@ from ui.modals.modal_adicionar import ModalAdicionar
 from ui.modals.modal_visualizar import ModalVisualizar
 from ui.modals.modal_atualizar import ModalAtualizar
 from ui.modals.modal_deletar import ModalDeletar
+from ui.components.logo_etec import LogoEtec  
 
 CRIMSON     = "#911712"
 CRIMSON_HOV = "#A52020"
@@ -37,7 +38,7 @@ class TelaProfessor(QMainWindow):
 
         root_layout.addWidget(self._build_topbar())
         root_layout.addWidget(self._build_main(), stretch=1)
-        root_layout.addWidget(self._build_bottombar())
+        root_layout.addWidget(self._build_bottombar())  # ← logo está aqui
 
     def _build_topbar(self):
         bar = QWidget()
@@ -200,6 +201,12 @@ class TelaProfessor(QMainWindow):
 
     def _build_bottombar(self):
         bar = QWidget()
-        bar.setFixedHeight(12)
+        bar.setFixedHeight(60)
         bar.setStyleSheet(f"background-color: {WHITE};")
+
+        layout = QHBoxLayout(bar)
+        layout.setContentsMargins(14, 4, 14, 4)
+        layout.addStretch()
+        layout.addWidget(LogoEtec(width=170, height=100)) 
+
         return bar

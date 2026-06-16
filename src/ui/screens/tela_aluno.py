@@ -8,6 +8,8 @@ from ui.components.botao_retornar import BotaoRetornar
 from ui.components.card_dificuldade import CardDificuldade
 from ui.modals.modal_como_jogar import CardComoJogar
 from ui.components.card_desempenho_alunos import CardDesempenho
+from ui.components.logo_etec import LogoEtec
+
 
 class TelaAluno(QWidget):
     retornar_login = Signal()
@@ -29,6 +31,7 @@ class TelaAluno(QWidget):
         layout_raiz.setContentsMargins(20, 20, 20, 20)
         layout_raiz.setSpacing(12)
 
+        # -- Topo: Retornar | Bem Vindo | Como Jogar --
         linha_topo = QHBoxLayout()
         linha_topo.setSpacing(12)
 
@@ -45,6 +48,7 @@ class TelaAluno(QWidget):
 
         layout_raiz.addLayout(linha_topo)
 
+        # -- Meio: Desempenho | Cards de dificuldade --
         linha_meio = QHBoxLayout()
         linha_meio.setSpacing(20)
 
@@ -99,7 +103,15 @@ class TelaAluno(QWidget):
         coluna_central.addLayout(linha_cards)
 
         self.botao_iniciar = self._criar_botao_iniciar()
-        coluna_central.addWidget(self.botao_iniciar, alignment=Qt.AlignCenter)
+        linha_botao_logo = QHBoxLayout()
+        linha_botao_logo.setSpacing(16)
+
+        linha_botao_logo.addStretch()
+        linha_botao_logo.addWidget(self.botao_iniciar, alignment=Qt.AlignCenter)
+        linha_botao_logo.addStretch()
+        linha_botao_logo.addWidget(LogoEtec(width=170, height=100), alignment=Qt.AlignVCenter)
+
+        coluna_central.addLayout(linha_botao_logo)
 
         linha_meio.addLayout(coluna_central, stretch=1)
         layout_raiz.addLayout(linha_meio, stretch=1)

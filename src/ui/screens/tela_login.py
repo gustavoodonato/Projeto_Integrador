@@ -5,6 +5,8 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import Qt, QSize
 from PySide6.QtGui import QFont, QPalette, QColor, QPainter, QPainterPath, QBrush
 from ui.components.botao_sair import BotaoSair
+from ui.components.logo_etec import LogoEtec 
+
 
 class RoundedRedBanner(QFrame):
     def __init__(self, parent=None):
@@ -32,8 +34,7 @@ class RoundedRedBanner(QFrame):
     def paintEvent(self, event):
         painter = QPainter(self)
         painter.setRenderHint(QPainter.Antialiasing)
-        
-        # Banner vermelho principal
+
         main_path = QPainterPath()
         main_path.addRoundedRect(self.rect().adjusted(0, 0, 0, 0), 22, 22)
         painter.setBrush(QBrush(QColor("#911712")))
@@ -77,7 +78,6 @@ class TelaLogin(QWidget):
     def _setup_ui(self):
         self.setStyleSheet("background-color: #fefefe;")
 
-        # Layout principal
         outer = QVBoxLayout(self)
         outer.setContentsMargins(20, 16, 20, 20)
         outer.setSpacing(0)
@@ -136,8 +136,7 @@ class TelaLogin(QWidget):
 
         outer.addSpacing(28)
 
-        # Seção --- Senha ---
-
+        # -- Seção Senha --
         form_layout = QVBoxLayout()
         form_layout.setContentsMargins(120, 0, 120, 0)
         form_layout.setSpacing(12)
@@ -177,8 +176,11 @@ class TelaLogin(QWidget):
         self.btn_entrar = BotaoEntrar("Entrar")
         self.btn_entrar.setFixedWidth(280)
         btn_row.addStretch()
-        btn_row.addWidget(self.btn_entrar)
+        btn_row.addWidget(self.btn_entrar, alignment=Qt.AlignCenter)
         btn_row.addStretch()
         outer.addLayout(btn_row)
 
         outer.addStretch()
+
+        self.logotipo = LogoEtec()
+        btn_row.addWidget(self.logotipo, alignment=Qt.AlignRight | Qt.AlignBottom)
