@@ -188,12 +188,6 @@ class ControllerTelaPartida(QObject):
             self.timer.stop()
             finalizar_partida(self.id_partida)
 
-            QMessageBox.information(
-                self.tela,
-                "Partida travada",
-                "Não há mais jogadas possíveis e o monte está vazio.\nA partida foi finalizada.",
-            )
-
             m = self.segundos // 60
             s = self.segundos % 60
 
@@ -202,10 +196,9 @@ class ControllerTelaPartida(QObject):
                 tempo=f"{m:02d}:{s:02d}",
                 total_jogadas=self.total_jogadas,
                 parent=self.tela,
-        )
-        modal.retornar_tela_aluno.connect(self._voltar_tela_aluno)
-        modal.exec()
-
+            )
+            modal.retornar_tela_aluno.connect(self._voltar_tela_aluno)
+            modal.exec()
     def _comprar_pedra(self):
         if not self.monte:
             self.tela.botao_comprar.setEnabled(False)
