@@ -6,10 +6,12 @@ from PySide6.QtGui import QDrag, QPixmap, QPainter
 class LayoutPedra(QFrame):
     pedra_clicada = Signal(object)
 
-    def __init__(self, id_lado_esquerdo=None, id_lado_direito=None, parent=None):
+    def __init__(self, id_lado_esquerdo=None, id_lado_direito=None, tipo_esquerdo=None, tipo_direito=None, parent=None):
         super().__init__(parent)       
         self.id_lado_esquerdo = id_lado_esquerdo
         self.id_lado_direito = id_lado_direito
+        self.tipo_esquerdo = tipo_esquerdo
+        self.tipo_direito = tipo_direito
         self.selecionada = False        
         self.posicao_clique = QPoint()
         self._setup_ui()

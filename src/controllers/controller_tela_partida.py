@@ -11,6 +11,12 @@ from database.crud_partida import (buscar_pedras_por_nivel,
 from ui.components.layout_pedra import LayoutPedra
 from ui.modals.modal_resultado_partida import ModalResultado
 
+REACOES = {
+    "Ácido":  "Ácido",
+    "Base":   "Base",
+    "Sal":    "Sal",
+    "Óxido":  "Óxido",
+}
 
 class ControllerTelaPartida(QObject):
     def __init__(self, tela, nivel: str, id_usuario: int, tela_aluno):
@@ -54,8 +60,14 @@ class ControllerTelaPartida(QObject):
             if item.widget():
                 item.widget().deleteLater()
 
-        for id_peca, esq, dir_ in self.mao:
-            widget = LayoutPedra(id_lado_esquerdo=esq, id_lado_direito=dir_)
+        for id_peca, esq, tipo_esq, dir_, tipo_dir in self.mao:
+            print(f"Renderizando: esq={esq}, tipo_esq={tipo_esq}, dir={dir_}, tipo_dir={tipo_dir}")  # ← aqui
+            widget = LayoutPedra(
+                id_lado_esquerdo=esq,
+                id_lado_direito=dir_,
+                tipo_esquerdo=tipo_esq,
+                tipo_direito=tipo_dir,
+            )
             widget.pedra_clicada.connect(self._selecionar_pedra)
             self.tela.layout_mao.addWidget(widget)
 
@@ -95,29 +107,46 @@ class ControllerTelaPartida(QObject):
             self._tentar_jogar(widget)
 
     def _tentar_jogar(self, widget: LayoutPedra):
-        esq  = widget.id_lado_esquerdo
-        dir_ = widget.id_lado_direito
+        tipo_esq = widget.tipo_esquerdo
+        tipo_dir = widget.tipo_direito
 
         if not self.mesa:
-            self._jogar_pedra(widget)
+            self._jogar_pedra(widget, lado_encaixe=None)
             return
 
-        ponta_dir = self.mesa[-1][2]
-        ponta_esq = self.mesa[0][1]
+        tipo_ponta_dir = self.mesa[-1][4]
+        tipo_ponta_esq = self.mesa[0][2]
 
-        if esq == ponta_dir or dir_ == ponta_dir or esq == ponta_esq or dir_ == ponta_esq:
-            self._jogar_pedra(widget)
+        if tipo_esq == tipo_ponta_dir:
+         self._jogar_pedra(widget, lado_encaixe="direita")
+        elif tipo_dir == tipo_ponta_esq:
+            self._jogar_pedra(widget, lado_encaixe="esquerda")
         else:
-            self._jogada_invalida(widget)
+            self._jogada_invalida(widget, tipo_ponta_dir, tipo_ponta_esq, tipo_ponta_dir, tipo_ponta_esq)
 
-    def _jogar_pedra(self, widget: LayoutPedra):
-        esq  = widget.id_lado_esquerdo
-        dir_ = widget.id_lado_direito
+    def _jogar_pedra(self, widget: LayoutPedra, lado_encaixe):
+        esq      = widget.id_lado_esquerdo
+        tipo_esq = widget.tipo_esquerdo
+        dir_     = widget.id_lado_direito
+        tipo_dir = widget.tipo_direito
 
-        self.mao  = [p for p in self.mao if not (p[1] == esq and p[2] == dir_)]
-        self.mesa.append((None, esq, dir_))
+        self.mao = [
+        p for p in self.mao
+        if not (p[1] == widget.id_lado_esquerdo and p[3] == widget.id_lado_direito)
+        ]
+
+        if lado_encaixe == "esquerda":
+            self.mesa.insert(0, (None, dir_, tipo_dir, esq, tipo_esq))
+        else:
+            self.mesa.append((None, esq, tipo_esq, dir_, tipo_dir))
+
         self.tela.mesa.adicionar_pedra(
-            LayoutPedra(id_lado_esquerdo=esq, id_lado_direito=dir_)
+        LayoutPedra(
+            id_lado_esquerdo=esq,
+            id_lado_direito=dir_,
+            tipo_esquerdo=tipo_esq,
+            tipo_direito=tipo_dir,
+        )
         )
 
         self.pontuacao     += 10
@@ -131,15 +160,15 @@ class ControllerTelaPartida(QObject):
         if not self.mao:
             self._finalizar_partida()
 
-    def _jogada_invalida(self, widget: LayoutPedra):
+    def _jogada_invalida(self, widget, tipo_ponta_dir, tipo_ponta_esq, oposto_dir, oposto_esq):
         self.pontuacao = max(0, self.pontuacao - 10)
         widget.desselecionar()
         self.pedra_selecionada = None
 
-        ponta_dir = self.mesa[-1][2] if self.mesa else "?"
         self.tela.card_dicas.atualizar_conteudo(
-            f"Jogada inválida! -10 pontos.\n"
-            f"A pedra precisa ter '{ponta_dir}' em um dos lados."
+        f"Jogada inválida! -10 pontos.\n"
+        f"Ponta direita ({tipo_ponta_dir}) precisa de: {oposto_dir}\n"
+        f"Ponta esquerda ({tipo_ponta_esq}) precisa de: {oposto_esq}"
         )
         self._atualizar_cards()
 

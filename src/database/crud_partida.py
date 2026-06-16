@@ -3,7 +3,11 @@ from database.database import conexao, cursor
 
 
 def buscar_pedras_por_nivel(nivel: str):
-    sql = "SELECT idPeca, lado_esquerdo, lado_direito FROM Peca WHERE nivel = %s"
+    sql = """
+    SELECT idPeca, lado_esquerdo, tipo_esquerdo, lado_direito, tipo_direito
+    FROM Peca
+    WHERE nivel = %s
+    """
     cursor.execute(sql, (nivel,))
     return cursor.fetchall()
 
