@@ -112,7 +112,7 @@ class TelaLogin(QWidget):
 
         self.campo_login = QLineEdit()
         self.campo_login.setPlaceholderText(
-            "Insira seu login aqui: (Aluno: nomealuno@aluno.cpf / Professor: nomeprof@prof.cpf  )"
+            "Insira seu login aqui: (Aluno: nomealuno@cps.sp.gov.br / Professor: nomeprof@cps.sp.gov.br)"
         )
         self.campo_login.setMinimumHeight(52)
         self.campo_login.setFont(QFont("Verdana", 12))

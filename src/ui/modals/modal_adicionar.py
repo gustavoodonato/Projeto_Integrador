@@ -76,7 +76,7 @@ class ModalAdicionar(QDialog):
         label_adicionar_login.setStyleSheet("color: #111; background: transparent;")
 
         self.campo_adicionar_login = QLineEdit()
-        self.campo_adicionar_login.setPlaceholderText("Insira o login do aluno que deseja adicionar ao banco de alunos: (Aluno: nomealuno@aluno.cpf)")
+        self.campo_adicionar_login.setPlaceholderText("Insira o login do aluno que deseja adicionar ao banco de alunos: (Aluno: nomealuno@cps.sp.gov.br)")
         self.campo_adicionar_login.setMinimumHeight(52)
         self.campo_adicionar_login.setFont(QFont("Verdana", 12))
         self.campo_adicionar_login.setStyleSheet("""
